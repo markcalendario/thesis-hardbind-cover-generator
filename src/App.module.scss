@@ -15,9 +15,13 @@
         flex-direction: column;
         gap: 20px;
 
+        .addAuthorBtn,
+        .submitBtn {
+          color: colors.$primary;
+        }
+
         .addAuthorBtn {
           background-color: colors.$white;
-          color: colors.$primary;
         }
 
         .submitBtn {
@@ -56,36 +60,31 @@
         text-align: center;
 
         .separator {
-          border-top: 2px colors.$yellow solid;
+          border-top: 2px solid colors.$yellow;
         }
 
-        .courseCode {
-          width: var(--spine-width);
-          color: colors.$yellow;
-        }
-
-        .title {
-          writing-mode: vertical-rl;
-          width: var(--spine-width);
-          height: 60%;
-          display: flex;
-          align-items: center;
-          line-height: 1;
-          color: colors.$yellow;
-        }
-
-        .surnames {
-          width: var(--spine-width);
-          writing-mode: vertical-rl;
-          height: 20%;
-          display: flex;
-          align-items: center;
-          color: colors.$yellow;
-        }
-
+        .courseCode,
+        .title,
+        .surnames,
         .year {
           width: var(--spine-width);
           color: colors.$yellow;
+        }
+
+        .title,
+        .surnames {
+          writing-mode: vertical-rl;
+          display: flex;
+          align-items: center;
+        }
+
+        .title {
+          height: 50%;
+          line-height: 1;
+        }
+
+        .surnames {
+          height: 15%;
         }
       }
 
