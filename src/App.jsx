@@ -19,8 +19,8 @@ function App() {
   return (
     <Fragment>
       <Navbar />
-      <CoverForm onSubmit={handleFormSubmit} />
       {coverData && <GeneratedCover {...coverData} />}
+      <CoverForm onSubmit={handleFormSubmit} />
     </Fragment>
   );
 }
