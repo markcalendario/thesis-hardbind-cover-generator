@@ -1,0 +1,13 @@
+@use "../../styles/abstracts/variables-colors" as colors;
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: baseline;
+
+  .title {
+    color: colors.$white;
+    font-size: 16px;
+  }
+}

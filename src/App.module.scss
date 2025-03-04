@@ -1,0 +1,43 @@
+@use "./styles/abstracts/variables-colors" as colors;
+@use "./styles/utils/responsive" as responsive;
+
+.coverForm {
+  border-top: 1px colors.$yellow solid;
+  background-color: colors.$primary;
+  min-height: calc(100vh - 57px);
+  padding: 50px 0;
+
+  .container {
+    @include responsive.container;
+
+    .header {
+      .title {
+        font-weight: 900;
+        color: colors.$white;
+      }
+
+      .description {
+        color: colors.$white;
+      }
+    }
+
+    .wrapper {
+      form {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .addAuthorBtn {
+          background-color: colors.$white;
+          color: colors.$primary;
+        }
+
+        .submitBtn {
+          background-color: colors.$yellow;
+          color: colors.$white;
+        }
+      }
+    }
+  }
+}

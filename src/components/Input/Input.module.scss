@@ -1,0 +1,42 @@
+@use "../../styles/abstracts/variables-colors" as colors;
+@use "../../styles/utils/mixins-shadows" as shadows;
+
+.input {
+  width: 100%;
+  background-color: transparent;
+  @include shadows.shadow;
+  padding: 7px 10px;
+  border-radius: 3px;
+  outline: 1px rgba($color: colors.$white, $alpha: 0.5) solid;
+  width: 100%;
+
+  label {
+    font-size: 10px;
+    color: colors.$white;
+    display: block;
+  }
+
+  input {
+    width: 100%;
+    border: 0;
+    background-color: transparent;
+    font-weight: 600;
+    color: colors.$white;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &::placeholder {
+      color: rgba($color: colors.$white, $alpha: 0.5);
+    }
+  }
+
+  &.disabled {
+    background-color: colors.$slate-2;
+  }
+}
