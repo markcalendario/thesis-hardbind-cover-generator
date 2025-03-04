@@ -69,7 +69,7 @@
   background-color: colors.$primary;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   text-align: center;
 
   &:hover {
@@ -78,7 +78,7 @@
   }
 
   .separator {
-    border-top: 2px solid colors.$yellow;
+    border-top: 3px solid colors.$yellow;
   }
 
   .courseCode,
@@ -87,6 +87,16 @@
   .year {
     width: var(--spine-width);
     color: colors.$yellow;
+    vertical-align: top;
+  }
+
+  .courseCode,
+  .year {
+    border: 3px colors.$yellow solid;
+    border-right: 0;
+    border-left: 0;
+    line-height: 1.5;
+    padding: 5px;
   }
 
   .title,
@@ -94,15 +104,16 @@
     writing-mode: vertical-rl;
     display: flex;
     align-items: center;
-  }
-
-  .title {
-    height: 50%;
+    transform: scale(0.9);
     line-height: 1;
   }
 
+  .title {
+    height: 55%;
+  }
+
   .surnames {
-    height: 15%;
+    height: 20%;
   }
 }
 

@@ -1,16 +1,21 @@
-import html2canvas from "html2canvas";
+import domtoimage from "dom-to-image";
 
 export default async function download(component) {
-  const canvas = await html2canvas(component, {
-    scale: 4,
-    scrollX: 0,
-    scrollY: -window.scrollY
-  });
+  const scale = 10;
 
-  const link = document.createElement("a");
-  link.href = canvas.toDataURL("image/png");
-  link.download = "hardbound-component.png";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  domtoimage
+    .toPng(component, {
+      width: component.clientWidth * scale,
+      height: component.clientHeight * scale,
+      style: {
+        transform: "scale(" + scale + ")",
+        transformOrigin: "top left"
+      }
+    })
+    .then(function (dataUrl) {
+      var link = document.createElement("a");
+      link.download = "my-image-name.png";
+      link.href = dataUrl;
+      link.click();
+    });
 }

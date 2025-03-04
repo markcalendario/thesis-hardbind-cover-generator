@@ -253,14 +253,12 @@ function Spine({ authorsSurnames, courseCode, title, year }) {
 
   return (
     <div className={styles.spine}>
-      <div className={styles.separator} />
       <p
         className={styles.courseCode}
         ref={courseCodeRef}
-        style={{ fontSize: courseCodeSize }}>
+        style={{ fontSize: `calc(${courseCodeSize} - 50%)` }}>
         {courseCode}
       </p>
-      <div className={styles.separator} />
       <p
         className={styles.title}
         ref={titleRef}
@@ -274,14 +272,12 @@ function Spine({ authorsSurnames, courseCode, title, year }) {
         style={{ fontSize: surnamesSize }}>
         {authorsSurnames.join(", ")}
       </p>
-      <div className={styles.separator} />
       <p
         className={styles.year}
         ref={yearRef}
-        style={{ fontSize: yearSize }}>
+        style={{ fontSize: `calc(${yearSize} - 50%)` }}>
         {year}
       </p>
-      <div className={styles.separator} />
     </div>
   );
 }
