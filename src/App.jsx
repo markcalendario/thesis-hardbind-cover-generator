@@ -32,7 +32,7 @@ function CoverForm({ onSubmit }) {
     pages: "",
     programName: "",
     programCode: "",
-    authors: [{ id: 1, lastName: "", firstName: "", middleInitial: "" }]
+    authors: []
   });
 
   const addAuthor = () => {
