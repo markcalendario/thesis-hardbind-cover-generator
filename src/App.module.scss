@@ -65,7 +65,7 @@
 
 .spine {
   width: var(--spine-width);
-  height: calc(11in * 0.4);
+  height: calc(11in * 0.3);
   background-color: colors.$primary;
   display: flex;
   flex-direction: column;
@@ -111,8 +111,8 @@
   background-color: colors.$primary;
   text-align: center;
   padding: 10px;
-  width: calc(8.5in * 0.4);
-  height: calc(11in * 0.4);
+  width: calc(8.5in * 0.3);
+  height: calc(11in * 0.3);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -128,7 +128,7 @@
     margin: auto;
 
     p {
-      font-size: 8px;
+      font-size: 6px;
       color: colors.$yellow;
     }
 
