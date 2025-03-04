@@ -2,7 +2,6 @@
 @use "./styles/utils/responsive" as responsive;
 
 .coverForm {
-  border-top: 1px colors.$yellow solid;
   background-color: colors.$primary;
   min-height: calc(100vh - 57px);
   padding: 50px 0;
@@ -10,20 +9,8 @@
   .container {
     @include responsive.container;
 
-    .header {
-      .title {
-        font-weight: 900;
-        color: colors.$white;
-      }
-
-      .description {
-        color: colors.$white;
-      }
-    }
-
     .wrapper {
       form {
-        margin-top: 20px;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -37,6 +24,74 @@
           background-color: colors.$yellow;
           color: colors.$white;
         }
+      }
+    }
+  }
+}
+
+.generatedCover {
+  background-color: colors.$primary-variant;
+
+  .container {
+    @include responsive.container;
+
+    .wrapper {
+      .cover {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc((8.5in + var(--spine-width, 0.4in)) * 0.4);
+        height: calc(11in * 0.4);
+        position: relative;
+        background-color: colors.$primary;
+      }
+
+      .spine {
+        width: var(--spine-width);
+        height: 100%;
+        background-color: colors.$primary;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: center;
+
+        .separator {
+          border-top: 2px colors.$yellow solid;
+        }
+
+        .courseCode {
+          width: var(--spine-width);
+          color: colors.$yellow;
+        }
+
+        .title {
+          writing-mode: vertical-rl;
+          width: var(--spine-width);
+          height: 60%;
+          display: flex;
+          align-items: center;
+          line-height: 1;
+          color: colors.$yellow;
+        }
+
+        .surnames {
+          width: var(--spine-width);
+          writing-mode: vertical-rl;
+          height: 20%;
+          display: flex;
+          align-items: center;
+          color: colors.$yellow;
+        }
+
+        .year {
+          width: var(--spine-width);
+          color: colors.$yellow;
+        }
+      }
+
+      .front {
+        flex-grow: 1;
+        background-color: colors.$primary;
       }
     }
   }

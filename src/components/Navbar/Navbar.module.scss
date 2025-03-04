@@ -4,6 +4,7 @@
 .navbar {
   background-color: colors.$primary;
   padding: 10px;
+  border-bottom: 1px colors.$yellow solid;
 
   .container {
     @include responsive.container;

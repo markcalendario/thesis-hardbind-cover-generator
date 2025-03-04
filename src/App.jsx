@@ -1,20 +1,25 @@
 import { Fragment, useState } from "react";
+import useFitText from "use-fit-text";
 import styles from "./App.module.scss";
 import Button from "./components/Buttons/Button/Button.jsx";
 import Input from "./components/Input/Input.jsx";
 import InputFlex from "./components/InputFlex/InputFlex.jsx";
 import InputGroup from "./components/InputGroup/InputGroup.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
+import SectionHeader from "./components/SectionHeader/SectionHeader.jsx";
 
 function App() {
+  const [coverData, setCoverData] = useState(null);
+
   const handleFormSubmit = (formData) => {
-    console.log("Submitted Data:", formData);
+    setCoverData(formData);
   };
 
   return (
     <Fragment>
       <Navbar />
       <CoverForm onSubmit={handleFormSubmit} />
+      {coverData && <GeneratedCover {...coverData} />}
     </Fragment>
   );
 }
@@ -29,30 +34,32 @@ function CoverForm({ onSubmit }) {
   });
 
   const addAuthor = () => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       authors: [
-        ...formData.authors,
+        ...prev.authors,
         {
-          id: formData.authors.length + 1,
+          id: prev.authors.length + 1,
           lastName: "",
           firstName: "",
           middleInitial: ""
         }
       ]
-    });
+    }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleAuthorChange = (index, e) => {
     const { name, value } = e.target;
-    const updatedAuthors = [...formData.authors];
-    updatedAuthors[index][name] = value;
-    setFormData({ ...formData, authors: updatedAuthors });
+    setFormData((prev) => {
+      const updatedAuthors = [...prev.authors];
+      updatedAuthors[index][name] = value;
+      return { ...prev, authors: updatedAuthors };
+    });
   };
 
   const handleSubmit = (e) => {
@@ -63,12 +70,10 @@ function CoverForm({ onSubmit }) {
   return (
     <section className={styles.coverForm}>
       <div className={styles.container}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>Your Thesis Information</h1>
-          <p className={styles.description}>
-            This website will not collect any information you put here.
-          </p>
-        </div>
+        <SectionHeader
+          title="Your Thesis Information"
+          description="This website will not collect any information."
+        />
         <div className={styles.wrapper}>
           <form onSubmit={handleSubmit}>
             <InputGroup title="Basic Details">
@@ -146,6 +151,77 @@ function CoverForm({ onSubmit }) {
       </div>
     </section>
   );
+}
+
+function GeneratedCover({ title, year, programCode, authors }) {
+  const spineWidth = Math.max(0.4, (150 + authors.length * 10) * 0.002); // Adjust spine width based on authors
+  const authorsSurnames = authors.map((a) => a.lastName).filter(Boolean);
+
+  return (
+    <section
+      className={styles.generatedCover}
+      style={{ "--spine-width": `${spineWidth}in` }}>
+      <div className={styles.container}>
+        <SectionHeader title="Generated Cover" />
+        <div className={styles.wrapper}>
+          <div className={styles.cover}>
+            <Spine
+              courseCode={programCode}
+              authorsSurnames={authorsSurnames}
+              title={title}
+              year={year}
+            />
+            <Front />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Spine({ authorsSurnames, courseCode, title, year }) {
+  const { fontSize: titleSize, ref: titleRef } = useFitText();
+  const { fontSize: courseCodeSize, ref: courseCodeRef } = useFitText();
+  const { fontSize: yearSize, ref: yearRef } = useFitText();
+  const { fontSize: surnamesSize, ref: surnamesRef } = useFitText();
+
+  return (
+    <div className={styles.spine}>
+      <div className={styles.separator} />
+      <p
+        className={styles.courseCode}
+        ref={courseCodeRef}
+        style={{ fontSize: courseCodeSize }}>
+        {courseCode}
+      </p>
+      <div className={styles.separator} />
+      <p
+        className={styles.title}
+        ref={titleRef}
+        style={{ fontSize: titleSize }}>
+        {title}
+      </p>
+      <div className={styles.separator} />
+      <p
+        className={styles.surnames}
+        ref={surnamesRef}
+        style={{ fontSize: surnamesSize }}>
+        {authorsSurnames.join(", ")}
+      </p>
+      <div className={styles.separator} />
+      <p
+        className={styles.year}
+        ref={yearRef}
+        style={{ fontSize: yearSize }}>
+        {year}
+      </p>
+      <div className={styles.separator} />
+    </div>
+  );
+}
+
+function Front() {
+  return <div className={styles.front}></div>;
 }
 
 export default App;
