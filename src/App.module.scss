@@ -35,63 +35,105 @@
 
 .generatedCover {
   background-color: colors.$primary-variant;
+  padding: 20px 0;
 
   .container {
     @include responsive.container;
 
     .wrapper {
-      .cover {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: calc((8.5in + var(--spine-width, 0.4in)) * 0.4);
-        height: calc(11in * 0.4);
-        position: relative;
-        background-color: colors.$primary;
-      }
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+  }
+}
 
-      .spine {
-        width: var(--spine-width);
-        height: 100%;
-        background-color: colors.$primary;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        text-align: center;
+.bind {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: colors.$primary;
 
-        .separator {
-          border-top: 2px solid colors.$yellow;
-        }
+  &:hover {
+    filter: brightness(120%);
+    cursor: pointer;
+  }
+}
 
-        .courseCode,
-        .title,
-        .surnames,
-        .year {
-          width: var(--spine-width);
-          color: colors.$yellow;
-        }
+.spine {
+  width: var(--spine-width);
+  height: calc(11in * 0.4);
+  background-color: colors.$primary;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
 
-        .title,
-        .surnames {
-          writing-mode: vertical-rl;
-          display: flex;
-          align-items: center;
-        }
+  &:hover {
+    filter: brightness(120%);
+    cursor: pointer;
+  }
 
-        .title {
-          height: 50%;
-          line-height: 1;
-        }
+  .separator {
+    border-top: 2px solid colors.$yellow;
+  }
 
-        .surnames {
-          height: 15%;
-        }
-      }
+  .courseCode,
+  .title,
+  .surnames,
+  .year {
+    width: var(--spine-width);
+    color: colors.$yellow;
+  }
 
-      .front {
-        flex-grow: 1;
-        background-color: colors.$primary;
-      }
+  .title,
+  .surnames {
+    writing-mode: vertical-rl;
+    display: flex;
+    align-items: center;
+  }
+
+  .title {
+    height: 50%;
+    line-height: 1;
+  }
+
+  .surnames {
+    height: 15%;
+  }
+}
+
+.front {
+  height: 100%;
+  background-color: colors.$primary;
+  text-align: center;
+  padding: 10px;
+  width: calc(8.5in * 0.4);
+  height: calc(11in * 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-top: 50px;
+
+  &:hover {
+    filter: brightness(120%);
+    cursor: pointer;
+  }
+
+  div {
+    width: 85%;
+    margin: auto;
+
+    p {
+      font-size: 8px;
+      color: colors.$yellow;
+    }
+
+    .author {
+      text-transform: uppercase;
     }
   }
 }

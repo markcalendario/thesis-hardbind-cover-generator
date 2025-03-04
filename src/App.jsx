@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import useFitText from "use-fit-text";
 import styles from "./App.module.scss";
 import Button from "./components/Buttons/Button/Button.jsx";
@@ -7,6 +7,7 @@ import InputFlex from "./components/InputFlex/InputFlex.jsx";
 import InputGroup from "./components/InputGroup/InputGroup.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import SectionHeader from "./components/SectionHeader/SectionHeader.jsx";
+import download from "./utils/download.js";
 
 function App() {
   const [coverData, setCoverData] = useState(null);
@@ -28,6 +29,7 @@ function CoverForm({ onSubmit }) {
   const [formData, setFormData] = useState({
     title: "",
     year: "",
+    pages: "",
     programName: "",
     programCode: "",
     authors: [{ id: 1, lastName: "", firstName: "", middleInitial: "" }]
@@ -92,6 +94,13 @@ function CoverForm({ onSubmit }) {
                 onChange={handleChange}
               />
               <Input
+                label="Pages"
+                name="pages"
+                placeholder="Total pages"
+                value={formData.pages}
+                onChange={handleChange}
+              />
+              <Input
                 label="Program Name"
                 name="programName"
                 placeholder="Full name of the program"
@@ -153,29 +162,86 @@ function CoverForm({ onSubmit }) {
   );
 }
 
-function GeneratedCover({ title, year, programCode, authors }) {
-  const spineWidth = Math.max(0.4, (150 + authors.length * 10) * 0.002); // Adjust spine width based on authors
+function GeneratedCover({
+  title,
+  year,
+  pages,
+  programCode,
+  programName,
+  school,
+  college,
+  authors
+}) {
+  const spineWidth = Math.max(0.4, pages * 0.002);
   const authorsSurnames = authors.map((a) => a.lastName).filter(Boolean);
+  const bindRef = useRef(null);
+  const spineRef = useRef(null);
+  const frontRef = useRef(null);
+
+  const SpineOnly = () => (
+    <Spine
+      courseCode={programCode}
+      authorsSurnames={authorsSurnames}
+      title={title}
+      year={year}
+    />
+  );
+
+  const FrontOnly = () => (
+    <Front
+      title={title}
+      school={school}
+      college={college}
+      authors={authors}
+      programName={programName}
+      year={year}
+    />
+  );
 
   return (
     <section
       className={styles.generatedCover}
       style={{ "--spine-width": `${spineWidth}in` }}>
       <div className={styles.container}>
-        <SectionHeader title="Generated Cover" />
+        <SectionHeader
+          title="Generated Components"
+          description="Click to download"
+        />
         <div className={styles.wrapper}>
-          <div className={styles.cover}>
-            <Spine
-              courseCode={programCode}
-              authorsSurnames={authorsSurnames}
-              title={title}
-              year={year}
-            />
-            <Front />
+          <div
+            ref={bindRef}
+            onClick={() => download(bindRef.current)}>
+            <Bind>
+              <SpineOnly />
+              <FrontOnly />
+            </Bind>
           </div>
+          <div
+            ref={spineRef}
+            onClick={() => download(spineRef.current)}>
+            <SpineOnly />
+          </div>
+          <div
+            ref={frontRef}
+            onClick={() => download(frontRef.current)}>
+            <FrontOnly />
+          </div>
+          <div className="cover"></div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Bind({ children }) {
+  const ref = useRef();
+
+  return (
+    <div
+      ref={ref}
+      className={styles.bind}>
+      {children}
+    </div>
   );
 }
 
@@ -220,8 +286,36 @@ function Spine({ authorsSurnames, courseCode, title, year }) {
   );
 }
 
-function Front() {
-  return <div className={styles.front}></div>;
+function Front({ title, authors, programName, year }) {
+  return (
+    <div className={styles.front}>
+      <div className={styles.title}>
+        <p>{title}</p>
+      </div>
+      <div className={styles.school}>
+        <p>Polytechnic University of the Philippines</p>
+        <p>College of Computer and Information Sciences</p>
+      </div>
+
+      <div className={styles.authors}>
+        {authors.map((author, index) => (
+          <p
+            key={index}
+            className={styles.author}>
+            {author.lastName + ", "}
+            {author.firstName + " "}
+            {author.middleInitial && author.middleInitial + "."}
+          </p>
+        ))}
+      </div>
+      <div className={styles.program}>
+        <p>{programName}</p>
+      </div>
+      <div className={styles.year}>
+        <p>{year}</p>
+      </div>
+    </div>
+  );
 }
 
 export default App;
