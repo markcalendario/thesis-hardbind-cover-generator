@@ -1,0 +1,21 @@
+@use "../../styles/abstracts/variables-colors" as colors;
+@use "../../styles/utils/responsive" as responsive;
+
+.navbar {
+  background-color: colors.$primary;
+  padding: 10px;
+
+  .container {
+    @include responsive.container;
+
+    .wrapper {
+      display: flex;
+      justify-content: flex-end;
+
+      .githubBtn {
+        background-color: colors.$slate-1;
+        color: colors.$primary;
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@use "../../../styles/abstracts/variables-colors" as colors;
+
+.button {
+  margin: 0;
+  padding: 10px 20px;
+  background-color: colors.$primary;
+  color: colors.$white;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+
+  &:hover {
+    filter: brightness(90%);
+  }
+}
